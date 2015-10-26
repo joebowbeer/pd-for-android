@@ -7,6 +7,16 @@
 
 package org.puredata.android.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+
+import org.puredata.android.io.AudioParameters;
+import org.puredata.android.io.PdAudio;
+import org.puredata.android.utils.Properties;
+import org.puredata.core.PdBase;
+import org.puredata.core.utils.IoUtils;
+
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,16 +31,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import org.puredata.android.io.AudioParameters;
-import org.puredata.android.io.PdAudio;
-import org.puredata.android.utils.Properties;
-import org.puredata.core.PdBase;
-import org.puredata.core.utils.IoUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
 
 /**
  * 
@@ -245,6 +245,7 @@ public class PdService extends Service {
 		protected static final int NOTIFICATION_ID = 1;
 		private boolean hasForeground = false;
 
+		@SuppressWarnings("deprecation")
 		protected Notification makeNotification(Intent intent, int icon, String title, String description) {
 			PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 			Notification notification = new Notification(icon, title, System.currentTimeMillis());
